@@ -1,0 +1,82 @@
+x-environment: &default-environment
+  PUID: ${PUID}
+  TZ: ${TZ}
+
+x-common: &common
+  restart: unless-stopped
+
+services:
+  adguardhome:
+    <<: *common
+    image: adguard/adguardhome
+    container_name: adguardhome
+    network_mode: host
+    volumes:
+      - ${DOCKERCONFDIR}/adguardhome/work:/opt/adguardhome/work
+      - ${DOCKERCONFDIR}/adguardhome/conf:/opt/adguardhome/conf
+    environment:
+      <<: [*default-environment]
+
+  cloudflared:
+    <<: *common
+    image: cloudflare/cloudflared
+    container_name: cloudflared-tunnel
+    command: tunnel run
+    environment:
+      <<: [*default-environment]
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN}
+
+  portainer:
+    <<: *common
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DOCKERCONFDIR}/portainer:/data
+    environment:
+      <<: [*default-environment]
+
+  uptime-kuma:
+    <<: *common
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    ports:
+      - 3001:3001 # <Host Port>:<Container Port>
+    volumes:
+      - ${DOCKERCONFDIR}/uptime-kuma:/app/data
+    environment:
+      <<: [*default-environment]
+
+  watchtower:
+    <<: *common
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      <<: [*default-environment]
+      WATCHTOWER_CLEANUP: true
+      WATCHTOWER_INCLUDE_RESTARTING: true
+      WATCHTOWER_INCLUDE_STOPPED: true
+      WATCHTOWER_REVIVE_STOPPED: false
+      WATCHTOWER_NO_RESTART: false
+      WATCHTOWER_TIMEOUT: 30s
+      WATCHTOWER_SCHEDULE: 0 0 4 * * *
+      WATCHTOWER_DEBUG: false
+
+  zerotier:
+    <<: *common
+    image: zerotier/zerotier-synology
+    container_name: zerotier
+    devices:
+      - /dev/net/tun
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - ${DOCKERCONFDIR}/zerotier:/var/lib/zerotier-one
+    environment:
+      <<: [*default-environment]
