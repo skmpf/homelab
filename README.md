@@ -13,7 +13,7 @@ Homelab aims to provide a turnkey solution for self-hosting essential infrastruc
     - [Cloudflared Tunnel](#cloudflared-tunnel)
     - [Portainer](#portainer)
     - [Uptime Kuma](#uptime-kuma)
-    - [Watchtower](#watchtower)
+    - [WUD (What's Up Docker)](#wud-whats-up-docker)
     - [ZeroTier](#zerotier)
 
 ## Quickstart
@@ -32,6 +32,7 @@ cp .env.template .env
 ```
 
 3. Fill in the required values in the `.env` file:
+
    - `DOCKERCONFDIR`: Directory for container configuration files
    - `DOCKERSTORAGEDIR`: Directory for storage (if needed)
    - `PUID`: Your user's ID (run `id -u` to find it)
@@ -76,9 +77,9 @@ A web-based interface for managing Docker environments, making it easier to depl
 
 A self-hosted monitoring tool that keeps track of the uptime status of your services and websites. Features include status pages, notifications, and detailed metrics. [More information](https://github.com/louislam/uptime-kuma)
 
-### Watchtower
+### WUD (What's Up Docker)
 
-A service that automatically updates running Docker containers to the latest available versions. Ensures your services are always running the most up-to-date and secure images. [More information](https://github.com/containrrr/watchtower)
+A web dashboard that monitors your Docker containers for available image updates and notifies you when new versions are released. [More information](https://github.com/fmartinou/whats-up-docker)
 
 ### ZeroTier
 
