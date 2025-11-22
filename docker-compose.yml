@@ -37,8 +37,6 @@ services:
       - ${DOCKERCONFDIR}/portainer:/data
     environment:
       <<: [*default-environment]
-    labels:
-      wud.tag.include: latest
 
   uptime-kuma:
     <<: *common
@@ -78,5 +76,3 @@ services:
       - ${DOCKERCONFDIR}/zerotier:/var/lib/zerotier-one
     environment:
       <<: [*default-environment]
-    labels:
-      wud.tag.include: latest
