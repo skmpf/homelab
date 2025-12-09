@@ -61,6 +61,9 @@ services:
       WUD_WATCHER_LOCAL_WATCHALL: true
       WUD_WATCHER_LOCAL_CRON: 0 4 * * 0 # Weekly on Sunday at 4am
       WUD_TRIGGER_DOCKER_LOCAL_AUTO: false
+      WUD_TRIGGER_TELEGRAM_1_MODE: batch
+      WUD_TRIGGER_TELEGRAM_1_BOTTOKEN: ${TELEGRAM_BOT_TOKEN}
+      WUD_TRIGGER_TELEGRAM_1_CHATID: ${TELEGRAM_CHAT_ID}
 
   zerotier:
     <<: *common
