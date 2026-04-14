@@ -11,9 +11,9 @@ Homelab aims to provide a turnkey solution for self-hosting essential infrastruc
   - [Services](#services)
     - [AdGuardHome](#adguardhome)
     - [Cloudflared Tunnel](#cloudflared-tunnel)
+    - [Dockhand](#dockhand)
     - [Portainer](#portainer)
     - [Uptime Kuma](#uptime-kuma)
-    - [WUD (What's Up Docker)](#wud-whats-up-docker)
     - [ZeroTier](#zerotier)
 
 ## Quickstart
@@ -32,7 +32,6 @@ cp .env.template .env
 ```
 
 3. Fill in the required values in the `.env` file:
-
    - `DOCKERCONFDIR`: Directory for container configuration files
    - `DOCKERSTORAGEDIR`: Directory for storage (if needed)
    - `PUID`: Your user's ID (run `id -u` to find it)
@@ -47,6 +46,7 @@ docker-compose up -d
 
 5. Access the web interfaces for each service:
    - AdGuardHome: http://localhost:3000
+   - Dockhand: http://localhost:3004
    - Portainer: http://localhost:9000
    - Uptime Kuma: http://localhost:3001
 
@@ -69,6 +69,10 @@ A network-wide software for blocking ads and tracking, enhancing privacy and sec
 
 A tunneling service by Cloudflare that securely exposes local servers to the internet without needing a public IP or port forwarding. Great for remote access to your services. [More information](https://github.com/cloudflare/cloudflared)
 
+### Dockhand
+
+A modern, efficient Docker management application providing real-time container management, Compose stack orchestration, and multi-environment support. [More information](https://github.com/Finsys/dockhand)
+
 ### Portainer
 
 A web-based interface for managing Docker environments, making it easier to deploy, manage, and troubleshoot containerized applications. Perfect for monitoring and controlling all your Docker containers. [More information](https://github.com/portainer/portainer)
@@ -76,10 +80,6 @@ A web-based interface for managing Docker environments, making it easier to depl
 ### Uptime Kuma
 
 A self-hosted monitoring tool that keeps track of the uptime status of your services and websites. Features include status pages, notifications, and detailed metrics. [More information](https://github.com/louislam/uptime-kuma)
-
-### WUD (What's Up Docker)
-
-A web dashboard that monitors your Docker containers for available image updates and notifies you when new versions are released. [More information](https://github.com/fmartinou/whats-up-docker)
 
 ### ZeroTier
 

@@ -26,6 +26,17 @@ services:
       <<: [*default-environment]
       TUNNEL_TOKEN: ${TUNNEL_TOKEN}
 
+  dockhand:
+    <<: *common
+    image: fnsys/dockhand:latest
+    container_name: dockhand
+    restart: unless-stopped
+    ports:
+      - 3004:3000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - dockhand_data:/app/data
+
   portainer:
     <<: *common
     image: portainer/portainer-ce:latest
@@ -49,22 +60,6 @@ services:
     environment:
       <<: [*default-environment]
 
-  whatsupdocker:
-    image: getwud/wud
-    container_name: wud
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 3004:3000
-    environment:
-      <<: [*default-environment]
-      WUD_WATCHER_LOCAL_WATCHALL: true
-      WUD_WATCHER_LOCAL_CRON: 0 4 * * 0 # Weekly on Sunday at 4am
-      WUD_TRIGGER_DOCKER_LOCAL_AUTO: false
-      WUD_TRIGGER_TELEGRAM_1_MODE: batch
-      WUD_TRIGGER_TELEGRAM_1_BOTTOKEN: ${TELEGRAM_BOT_TOKEN}
-      WUD_TRIGGER_TELEGRAM_1_CHATID: ${TELEGRAM_CHAT_ID}
-
   zerotier:
     <<: *common
     image: zerotier/zerotier-synology:latest
@@ -79,3 +74,6 @@ services:
       - ${DOCKERCONFDIR}/zerotier:/var/lib/zerotier-one
     environment:
       <<: [*default-environment]
+
+volumes:
+  dockhand_data:
