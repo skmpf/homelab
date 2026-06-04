@@ -37,18 +37,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - dockhand_data:/app/data
 
-  portainer:
-    <<: *common
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    ports:
-      - 9000:9000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${DOCKERCONFDIR}/portainer:/data
-    environment:
-      <<: [*default-environment]
-
   uptime-kuma:
     <<: *common
     image: louislam/uptime-kuma:2
