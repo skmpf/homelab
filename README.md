@@ -9,7 +9,6 @@ Homelab aims to provide a turnkey solution for self-hosting essential infrastruc
   - [Quickstart](#quickstart)
   - [Notes](#notes)
   - [Services](#services)
-    - [AdGuardHome](#adguardhome)
     - [Cloudflared Tunnel](#cloudflared-tunnel)
     - [Dockhand](#dockhand)
     - [Uptime Kuma](#uptime-kuma)
@@ -44,23 +43,17 @@ docker-compose up -d
 ```
 
 5. Access the web interfaces for each service:
-   - AdGuardHome: http://localhost:3000
    - Dockhand: http://localhost:3004
    - Uptime Kuma: http://localhost:3001
 
 ## Notes
 
-- AdGuardHome runs in host network mode for DNS server functionality
 - ZeroTier also runs in host network mode and requires NET_ADMIN capabilities
 - Cloudflared requires a tunnel token from Cloudflare
 - Make sure to create the directories specified for `DOCKERCONFDIR` before starting the services
 - All services use the non-root PUID for better security
 
 ## Services
-
-### AdGuardHome
-
-A network-wide software for blocking ads and tracking, enhancing privacy and security on your home network. Runs as your own private DNS server. [More information](https://github.com/AdguardTeam/AdGuardHome)
 
 ### Cloudflared Tunnel
 
